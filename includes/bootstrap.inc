@@ -478,7 +478,6 @@ function drupal_environment_initialize() {
   // flag (this was added in Apache 2.2.8), because mod_rewrite unescapes the
   // path before passing it on to PHP. This is a problem when the path contains
   // e.g. "&" or "%" that have special meanings in URLs and must be encoded.
-  $_GET['q'] = request_path();
 
   // Enforce E_ALL, but allow users to set levels not part of E_ALL.
   error_reporting(E_ALL | error_reporting());
@@ -947,7 +946,6 @@ function drupal_add_http_header($name, $value, $append = FALSE) {
   else {
     $headers[$name_lower] = $value;
   }
-  drupal_send_headers(array($name => $headers[$name_lower]), TRUE);
 }
 
 /**
@@ -1846,8 +1844,6 @@ function drupal_bootstrap($phase = NULL, $new_phase = TRUE) {
     DRUPAL_BOOTSTRAP_DATABASE,
     DRUPAL_BOOTSTRAP_VARIABLES,
     DRUPAL_BOOTSTRAP_SESSION,
-    DRUPAL_BOOTSTRAP_PAGE_HEADER,
-    DRUPAL_BOOTSTRAP_LANGUAGE,
     DRUPAL_BOOTSTRAP_FULL,
   );
   // Not drupal_static(), because the only legitimate API to control this is to
